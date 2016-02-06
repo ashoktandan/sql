@@ -1,0 +1,1 @@
+alter table uu add unique("email","name")
