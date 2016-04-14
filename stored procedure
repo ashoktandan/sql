@@ -1,0 +1,25 @@
+sql:
+CREATE procedure productsprocedure
+(
+@id int,
+@name varchar(99),
+@quantity int,
+@price int
+)
+as
+insert into products values(@id,@name,@quantity,@price)
+
+exec productsprocedure 4,'eer',5,6
+
+c#:
+using Microsoft.Reporting.WebForms;
+ protected void Button2_Click(object sender, EventArgs e)
+    {
+        SqlDataAdapter cmd = new SqlDataAdapter("select * from products where id='" + TextBox5.Text + "'", c);
+        DataTable ds = new DataTable();
+        cmd.Fill(ds);
+        ReportDataSource d = new ReportDataSource("DataSet1", ds);
+        ReportViewer1.LocalReport.DataSources.Add(d);
+        ReportViewer1.LocalReport.ReportPath = "Report2.rdlc";
+        ReportViewer1.LocalReport.Refresh();
+    }
