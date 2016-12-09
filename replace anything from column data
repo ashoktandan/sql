@@ -1,0 +1,31 @@
+USE [test]
+GO
+/****** Object:  StoredProcedure [dbo].[proc1]    Script Date: 12/9/2016 6:16:55 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+alter PROCEDURE [dbo].[proc1]
+as begin
+DECLARE @LoopCounter INT = 1
+DECLARE @datalength INT = null
+DECLARE @testcolumn varchar(99)
+DECLARE @newcolumn varchar(99)
+DECLARE @finalcolumn varchar(99)
+begin
+select @datalength=count(*) from [dbo].[ICD10_LVL4]
+end
+WHILE (@LoopCounter<@datalength )
+BEGIN  
+
+
+
+select @testcolumn=icd10_code from [dbo].[ICD10_LVL4] where lvl4_id = @LoopCounter
+--SELECT @newcolumn=REPLACE(@testcolumn, '''', '')//comment
+Select @newcolumn=left (@testcolumn, len (@testcolumn)-1)
+Select @finalcolumn =right (@newcolumn, len (@newcolumn)-1)
+update [dbo].[ICD10_LVL4] set icd10_code=@finalcolumn where lvl4_id = @LoopCounter
+set @LoopCounter=@LoopCounter+1
+END
+end
