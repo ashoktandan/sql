@@ -1,0 +1,6 @@
+   command.Parameters["@" + outarr[i]].Direction = ParameterDirection.Output;
+                    if (outarr[i] == "CTID")
+                    {
+                        command.Parameters["@" + outarr[i]].SqlDbType = SqlDbType.VarChar;
+                        command.Parameters["@" + outarr[i]].Size = 13;
+                    }
